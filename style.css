@@ -1,0 +1,50 @@
+body {
+    padding-top: 50px;
+}
+
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.content-area {
+    margin: 30px;
+}
+
+.input-area {
+    margin: 25px;
+}
+
+.task-text {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+
+/* .list-group-item:hover {
+    background: #000;
+} */
+
+.hidden {
+    display: none;
+}
+
+.delete-icon-area {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.delete-icon {
+    color: red;
+    padding-left: 5px;
+}
+
+.edit-icon {
+    color: #0099ff;
+}
+
+.complete {
+    text-decoration: line-through;
+}
