@@ -52,7 +52,7 @@ class ToDoClass {
     completeTodo = (id) => {
         let index = this.tasks.findIndex(t => t.id == id);
         this.tasks[index].isComplete = !this.tasks[index].isComplete;
-        this.loadTasks(this.tasks);
+        this.loadTasks(this.checkComboboxFIlter());
     }
 
     deleteTodo = (event, id) => {
@@ -65,7 +65,7 @@ class ToDoClass {
                 clearInterval(this.timer);
                 this.taskUndo = this.tasks[index];
                 this.tasks.splice(index, 1);
-                this.loadTasks(this.tasks);
+                this.loadTasks(this.checkComboboxFIlter());
 
                 // Undo
                 let divUndo = document.getElementById("undo");
@@ -98,7 +98,7 @@ class ToDoClass {
 
     undo = () => {
         this.tasks.splice(this.indexUndo, 0, this.taskUndo);
-        this.loadTasks(this.tasks);
+        this.loadTasks(this.checkComboboxFIlter());
         document.getElementById("undo").innerHTML = "";
     }
 
@@ -118,7 +118,7 @@ class ToDoClass {
         let index = this.tasks.findIndex(t => t.id == id);
         let input = document.getElementById(id).value;
         this.tasks[index].task = input;
-        this.loadTasks(this.tasks);
+        this.loadTasks(this.checkComboboxFIlter());
     }
 
     checkSelectAll = () => {
@@ -158,7 +158,7 @@ class ToDoClass {
         this.loadTasks(this.tasks);
     }
 
-    filterByStatus = () => {
+    checkComboboxFIlter() {
         let resultFilter = [];
         let choosen = document.getElementById("filter").value;
         if (choosen == "1") {
@@ -168,7 +168,11 @@ class ToDoClass {
         } else {
             resultFilter = this.tasks;
         }
-        this.loadTasks(resultFilter);
+        return resultFilter;
+    }
+
+    filterByStatus = () => {
+        this.loadTasks(this.checkComboboxFIlter());
     }
 
     countMarkDone = () => {
@@ -203,6 +207,7 @@ class ToDoClass {
 
     loadTasks = (tasksList) => {
         localStorage.setItem('items', JSON.stringify(this.tasks));
+        document.getElementById("error").style.display = "none";
         this.countMarkDone();
         let taskHtml = tasksList.reduce((html, task) => html += this.generateTaskHtml(task), '');
         if (tasksList != undefined && tasksList.length != 0) {
